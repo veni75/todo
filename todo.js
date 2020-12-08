@@ -58,7 +58,7 @@ const toDo = () => {
     todoElementArray.push(todoElement);
     
     for (let i = 0; i < todoElementArray.length; i++) {
-        todoElementArray[i].addEventListener('mouseover', () => redElement(todoElement));
+        todoElementArray[i].addEventListener('mouseover', () => redElement(todoElementArray[i]));
     }
 
     counter.textContent = number;
@@ -67,7 +67,7 @@ const toDo = () => {
     todoData[sorszam] = [inputText, true];
 }
 
-const redElementS = (elem) => {
+const redElement = (elem) => {
     todoRed = document.createElement('div');
     elem.appendChild(todoRed);
     todoRed.className = (`block ${sorszam}`);
