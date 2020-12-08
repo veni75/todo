@@ -1,17 +1,17 @@
 * {
     box-sizing: border-box;
 }
-
+​
 body {
     background: linear-gradient(#fa8541, #fc3873);
     height: 100vh;
 }
-
+​
 h1 {
     color: #ffffff;
     text-align: center;
 }
-
+​
 main {
     background-color: #e8f1f3;
     border-radius: 5px;
@@ -20,42 +20,30 @@ main {
     padding: 3rem;
     position: relative;
 }
-
+​
 .date,
 .day {
     color: #fc3873;
 }
-
+​
 .inputRow {
     display: flex;
     flex-direction: row;
 }
-
+​
 input {
     border-radius: 5px;
     height: 2.5rem;
     flex-grow: 5;
     margin-right: 1rem;
 }
-
+​
 ::placeholder {
     color: #808080;
     font-size: 1rem;
     font-style: italic;
 }
-
-input[id^="todo"] {
-    width: 25px;
-}
-
-.todoDiv {
-    background-color: greenyellow;
-    margin: 1rem 0;
-    height: 45px;
-    line-height: 40px;
-    position: relative;
-}
-
+​
 button {
     background-color: rgb(184, 184, 184);
     border-radius: 5px;
@@ -64,11 +52,11 @@ button {
     font-size: 2rem;
     height: 2.5rem;
 }
-
+​
 button:hover {
     background-color: rgb(87, 43, 247);
 }
-
+​
 .todoElement {
     background-color: rgb(235, 255, 236);
     border: 1px solid rgb(253, 218, 236);
@@ -80,8 +68,8 @@ button:hover {
     padding-left: 50px;
     position: relative;
 }
-
-/* .white {
+​
+.white {
     background-color: #ffffff;
     border: 1px solid rgb(201, 200, 200);
     border-radius: 2px;
@@ -90,9 +78,8 @@ button:hover {
     left: 10px;
     top: 14px;
     width: 21px;
-    z-index:10;
 }
-
+​
 .whitedone {
     background-color: rgb(255, 0, 0);
     border: 1px solid rgb(255, 0, 0);
@@ -102,8 +89,8 @@ button:hover {
     left: 10px;
     top: 14px;
     width: 21px;
-} */
-
+}
+​
 .red {
     background-color: red;
     border-radius: 0 5px 5px 0;
@@ -114,7 +101,7 @@ button:hover {
     top: 0;
     width: 48px;
 }
-
+​
 .block {
     background-color: red;
     border-radius: 0 5px 5px 0;
@@ -125,16 +112,24 @@ button:hover {
     top: 0;
     width: 48px;
 }
-
+​
 footer {
     bottom: 2rem;
     color: black;
     font-weight: bold;
     text-align: center;
 }
-
+​
 footer a {
     color: black;
     margin: 2rem 1rem;
     text-decoration: none;
+}
+​
+.todoElement .block {
+    visibility: hidden;
+}
+​
+.todoElement.hovered .block {
+    visibility: visible;
 }
