@@ -12,6 +12,7 @@ const input = document.querySelector('input');
 const counter = document.querySelector('.counter');
 let todoElement, todoRed, todoWhite;
 let todoElementArray = [];
+let todoRedArray = [];
 let inputText;
 let number = 0;
 let sorszam = 0;
@@ -25,10 +26,9 @@ const clearTodo = () => {
     counter.textContent = number;
 }
 
-const del = () => {
-    todoRed.parentElement.parentElement.removeChild(todoElement);
-    localStorage.removeItem('');
-    console.log(localStorage.length);
+const del = (elem) => {
+    elem.parentElement.parentElement.removeChild(todoElement);
+    localStorage.removeItem('');    
     number -= 1;
     counter.textContent = number;
 }
@@ -53,10 +53,10 @@ const toDo = () => {
     todoElementArray.push(todoElement);
     todoWhite = document.createElement('div');
     todoElement.appendChild(todoWhite);
-    todoWhite.className = (`white ${sorszam}`);    
+    todoWhite.className = (`white ${sorszam}`);
     todoElement.textContent = inputText;
     todoElementArray.push(todoElement);
-    
+
     for (let i = 0; i < todoElementArray.length; i++) {
         todoElementArray[i].addEventListener('mouseover', () => redElement(todoElementArray[i]));
     }
@@ -71,12 +71,12 @@ const redElement = (elem) => {
     todoRed = document.createElement('div');
     elem.appendChild(todoRed);
     todoRed.className = (`block ${sorszam}`);
-    todoRed.addEventListener('click', del);
+    todoRedArray.push(todoRed);
+    for (let i = 0; i < todoRedArray.length; i++) {
+        todoRedArray[i].addEventListener('click', () => del(todoRedArray[i]));
+    }
 }
 
 const button = document.querySelector('button');
 button.addEventListener('click', toDo);
 clear.addEventListener('click', clearTodo);
-
-
-
