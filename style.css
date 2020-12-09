@@ -90,6 +90,10 @@ input[id^="todo"] {
     width: 48px;
 }
 
+i{
+    color: #ffffff;
+}
+
 footer {    
     text-align: center;
 }

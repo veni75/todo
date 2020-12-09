@@ -15,8 +15,6 @@ let inputText;
 let number = 0;
 let sorszam = 0;
 
-const todoData = {};
-
 const dateHandler = () => {
     const now = new Date();
     let options = { weekday: 'long' };
@@ -34,7 +32,7 @@ const todoDoneHide = () => {
 todoDoneHide();
 
 const clearTodo = () => {
-    todoList.removeChild(todoElement);
+    todoList.removeChild(todoDiv);
     localStorage.clear();
     number = 0;
     counter.textContent = number;
@@ -53,7 +51,10 @@ const deleteTodo = (ev) => {
 const redElement = (element) => {
     todoRed = document.createElement('div');
     element.appendChild(todoRed);
-    todoRed.className = ('red');
+    todoRed.className = ('hide');
+    const redIcon = document.createElement('i');
+    todoRed.appendChild(redIcon);
+    redIcon.className = ('fa fa-calendar-minus');
     todoRed.addEventListener('click', deleteTodo);
 }
 
@@ -63,7 +64,6 @@ const toDo = () => {
     sorszam += 1;
     localStorage.setItem(`todo${sorszam}`, inputText);
     input.value = '';
-
     const todoDiv = document.createElement('div');
     todoDiv.className = ('todoDiv');
     todoElement = document.createElement('input');
@@ -77,25 +77,17 @@ const toDo = () => {
     todoDiv.appendChild(todoElement);
     todoDiv.appendChild(todoElementLabel);
     redElement(todoDiv);
-
     todoDiv.addEventListener('mouseover', ev => ev.currentTarget.lastChild.className = ('appearRed'));
     todoDiv.addEventListener('mouseleave', ev => ev.currentTarget.lastChild.className = ('hide'));
-
     todoElement.addEventListener('click', checkBox);
-
-
-    counter.textContent = number;
-
-    todoData[sorszam] = [inputText, true];
+    counter.textContent = number;    
 }
 
 const button = document.querySelector('button');
 button.addEventListener('click', toDo);
 clear.addEventListener('click', clearTodo);
 
-
 const checkBox = (ev) => {
-
     if (ev.currentTarget.checked === true) {
         ev.currentTarget.parentElement.parentElement.removeChild(ev.currentTarget.parentElement);
         const todoDoneDiv = document.createElement('div');
@@ -116,3 +108,31 @@ const checkBox = (ev) => {
         doneCounter.textContent = number;
     }
 }
+
+const toDoStart = (i) => {
+    number = localStorage.length;
+    const todoDiv = document.createElement('div');
+    todoDiv.className = ('todoDiv');
+    todoElement = document.createElement('input');
+    todoElement.setAttribute('type', 'checkbox');
+    todoElement.setAttribute('id', `todo${sorszam}`);
+    todoElement.setAttribute('name', `todo${sorszam}`);
+    let todoElementLabel = document.createElement('label');
+    todoElementLabel.setAttribute('for', `todo${sorszam}`);    
+    todoList.appendChild(todoDiv);
+    todoDiv.appendChild(todoElement);
+    todoDiv.appendChild(todoElementLabel);
+    redElement(todoDiv);
+    todoDiv.addEventListener('mouseover', ev => ev.currentTarget.lastChild.className = ('appearRed'));
+    todoDiv.addEventListener('mouseleave', ev => ev.currentTarget.lastChild.className = ('hide'));
+    todoElement.addEventListener('click', checkBox);
+    todoElementLabel.textContent = localStorage.getItem(localStorage.key(i));
+    counter.textContent = number;
+}
+
+const start = () => {
+    for (let i = 0; i < localStorage.length; i++) {
+        toDoStart(i);        
+    }
+}
+start();
