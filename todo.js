@@ -10,10 +10,12 @@ const counter = document.querySelector('.todo__counter');
 const doneCounter = document.querySelector('.todo__doneCounter');
 const hide = document.querySelector('.todo__hide');
 const complete = document.querySelector('.todo__complete');
-let todoElement, todoWhite, todoRed;
+let todoElement, todoWhite, todoRed, todoDiv;
 let inputText;
 let number = 0;
 let sorszam = 0;
+let percent = 0;
+let done = 0;
 
 const dateHandler = () => {
     const now = new Date();
@@ -31,9 +33,9 @@ const todoDoneHide = () => {
 }
 todoDoneHide();
 
-const clearTodo = () => {
-    todoList.removeChild(todoDiv);
-    localStorage.clear();
+const clearTodo = () => {       
+    localStorage.clear();    
+    todoList.removeChild(todoDiv);    
     number = 0;
     counter.textContent = number;
 }
@@ -64,7 +66,7 @@ const toDo = () => {
     sorszam += 1;
     localStorage.setItem(`todo${sorszam}`, inputText);
     input.value = '';
-    const todoDiv = document.createElement('div');
+    todoDiv = document.createElement('div');
     todoDiv.className = ('todoDiv');
     todoElement = document.createElement('input');
     todoElement.setAttribute('type', 'checkbox');
@@ -103,15 +105,17 @@ const checkBox = (ev) => {
         todoDoneList.appendChild(todoDoneDiv);
         todoDoneDiv.appendChild(todoElementDone);
         todoDoneDiv.appendChild(todoElementLabelDone);
+        done += 1;
+        percent = done/sorszam;
         number -= 1;
         counter.textContent = number;
-        doneCounter.textContent = number;
+        doneCounter.textContent = percent*100;
     }
 }
 
 const toDoStart = (i) => {
     number = localStorage.length;
-    const todoDiv = document.createElement('div');
+    todoDiv = document.createElement('div');
     todoDiv.className = ('todoDiv');
     todoElement = document.createElement('input');
     todoElement.setAttribute('type', 'checkbox');
@@ -128,6 +132,7 @@ const toDoStart = (i) => {
     todoElement.addEventListener('click', checkBox);
     todoElementLabel.textContent = localStorage.getItem(localStorage.key(i));
     counter.textContent = number;
+    sorszam = number;
 }
 
 const start = () => {
