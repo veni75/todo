@@ -50,6 +50,12 @@ input[id^="todo"] {
     width: 25px;
 }
 
+.todo__none{
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 4rem 0;
+}
+
 .todoDiv,
 .todoDoneDiv {
     animation: todoDiv 0.7s;
@@ -91,7 +97,7 @@ input[id^="todo"] {
 }
 
 .hide {
-    animation: hide 0.7s;
+    /* animation: hide 0.7s; */
     display: none;
 }
 

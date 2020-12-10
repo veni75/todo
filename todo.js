@@ -10,6 +10,7 @@ const counter = document.querySelector('.todo__counter');
 const doneCounter = document.querySelector('.todo__doneCounter');
 const hide = document.querySelector('.todo__hide');
 const complete = document.querySelector('.todo__complete');
+let todoNone = document.querySelector('.todo__none');
 let todoElement, todoWhite, todoRed, todoDiv;
 let inputText;
 let number = 0;
@@ -40,8 +41,9 @@ const clearTodo = () => {
         i -= 1;
     }
     localStorage.clear();
-    numberSet(0);    
-    sorszam = 0;    
+    numberSet(0);
+    sorszam = 0;
+    todoNone.classList.remove('hide');
 }
 
 /* const numberSet1 = {
@@ -68,6 +70,9 @@ const deleteTodo = (ev) => {
     todoDiv.parentElement.removeChild(todoDiv);
     localStorage.removeItem(`todo${todoId}`);
     numberSet(-1);
+    if (localStorage.length === 0) {
+        todoNone.classList.remove('hide');
+    }
 }
 
 const redElement = (element) => {
@@ -101,7 +106,11 @@ const toDo = () => {
     redElement(todoDiv);
     todoDiv.addEventListener('mouseover', ev => ev.currentTarget.lastChild.className = ('appearRed'));
     todoDiv.addEventListener('mouseleave', ev => ev.currentTarget.lastChild.className = ('hide'));
-    todoElement.addEventListener('click', checkBox);    
+    todoElement.addEventListener('click', checkBox);
+    console.log(todoNone.classList);
+    if (!todoNone.classList.contains('hide')){
+        todoNone.classList.add('hide');
+    }
 }
 
 const button = document.querySelector('button');
@@ -126,7 +135,7 @@ const checkBox = (ev) => {
         todoDoneDiv.appendChild(todoElementLabelDone);
         done += 1;
         percent = done / sorszam;
-        numberSet(-1);        
+        numberSet(-1);
         doneCounter.textContent = (percent * 100).toPrecision(3);
     }
 }
@@ -151,6 +160,11 @@ const toDoStart = (i) => {
 }
 
 const start = () => {
+    if (localStorage.length === 0) {
+        todoNone.classList.remove('hide');
+    } else {
+        todoNone.classList.add('hide');
+    }
     for (let i = 0; i < localStorage.length; i++) {
         toDoStart(i);
     }
