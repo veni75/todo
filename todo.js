@@ -33,21 +33,41 @@ const todoDoneHide = () => {
 }
 todoDoneHide();
 
-const clearTodo = () => {       
-    localStorage.clear();    
-    todoList.removeChild(todoDiv);    
-    number = 0;
+const clearTodo = () => {
+    let i = todoList.childNodes.length;
+    while (i > 0) {
+        todoList.removeChild(todoList.childNodes[i - 1]);
+        i -= 1;
+    }
+    localStorage.clear();
+    numberSet(0);    
+    sorszam = 0;    
+}
+
+/* const numberSet1 = {
+    0: ()=>number =0,
+    1: ()=>number +=1,
+    2: ()=>number -=1,
+} */
+
+const numberSet = (value) => {
+    if (value === 1) {
+        number += 1;
+    } else if (value === -1) {
+        number -= 1;
+    } else if (value === 0) {
+        number = 0;
+    }
     counter.textContent = number;
 }
 
 const deleteTodo = (ev) => {
     const elem = ev.currentTarget;
-    const todoElement = elem.parentElement;
-    const todoId = todoElement.className.split(' ').pop();
-    todoElement.parentElement.removeChild(todoElement);
+    const todoDiv = elem.parentElement;
+    const todoId = todoDiv.className.split(' ').pop();
+    todoDiv.parentElement.removeChild(todoDiv);
     localStorage.removeItem(`todo${todoId}`);
-    number -= 1;
-    counter.textContent = number;
+    numberSet(-1);
 }
 
 const redElement = (element) => {
@@ -56,18 +76,18 @@ const redElement = (element) => {
     todoRed.className = ('hide');
     const redIcon = document.createElement('i');
     todoRed.appendChild(redIcon);
-    redIcon.className = ('fa fa-calendar-minus');
+    redIcon.className = ('fa fa-bitbucket');
     todoRed.addEventListener('click', deleteTodo);
 }
 
 const toDo = () => {
     inputText = input.value;
-    number += 1;
+    numberSet(1);
     sorszam += 1;
     localStorage.setItem(`todo${sorszam}`, inputText);
     input.value = '';
     todoDiv = document.createElement('div');
-    todoDiv.className = ('todoDiv');
+    todoDiv.className = (`todoDiv todo${sorszam}`);
     todoElement = document.createElement('input');
     todoElement.setAttribute('type', 'checkbox');
     todoElement.setAttribute('id', `todo${sorszam}`);
@@ -81,8 +101,7 @@ const toDo = () => {
     redElement(todoDiv);
     todoDiv.addEventListener('mouseover', ev => ev.currentTarget.lastChild.className = ('appearRed'));
     todoDiv.addEventListener('mouseleave', ev => ev.currentTarget.lastChild.className = ('hide'));
-    todoElement.addEventListener('click', checkBox);
-    counter.textContent = number;    
+    todoElement.addEventListener('click', checkBox);    
 }
 
 const button = document.querySelector('button');
@@ -106,23 +125,21 @@ const checkBox = (ev) => {
         todoDoneDiv.appendChild(todoElementDone);
         todoDoneDiv.appendChild(todoElementLabelDone);
         done += 1;
-        percent = done/sorszam;
-        number -= 1;
-        counter.textContent = number;
-        doneCounter.textContent = percent*100;
+        percent = done / sorszam;
+        numberSet(-1);        
+        doneCounter.textContent = (percent * 100).toPrecision(3);
     }
 }
 
 const toDoStart = (i) => {
-    number = localStorage.length;
     todoDiv = document.createElement('div');
-    todoDiv.className = ('todoDiv');
+    todoDiv.className = (`todoDiv todo${i}`);
     todoElement = document.createElement('input');
     todoElement.setAttribute('type', 'checkbox');
-    todoElement.setAttribute('id', `todo${sorszam}`);
-    todoElement.setAttribute('name', `todo${sorszam}`);
+    todoElement.setAttribute('id', `todo${i}`);
+    todoElement.setAttribute('name', `todo${i}`);
     let todoElementLabel = document.createElement('label');
-    todoElementLabel.setAttribute('for', `todo${sorszam}`);    
+    todoElementLabel.setAttribute('for', `todo${i}`);
     todoList.appendChild(todoDiv);
     todoDiv.appendChild(todoElement);
     todoDiv.appendChild(todoElementLabel);
@@ -131,13 +148,14 @@ const toDoStart = (i) => {
     todoDiv.addEventListener('mouseleave', ev => ev.currentTarget.lastChild.className = ('hide'));
     todoElement.addEventListener('click', checkBox);
     todoElementLabel.textContent = localStorage.getItem(localStorage.key(i));
-    counter.textContent = number;
-    sorszam = number;
 }
 
 const start = () => {
     for (let i = 0; i < localStorage.length; i++) {
-        toDoStart(i);        
+        toDoStart(i);
     }
+    number = localStorage.length;
+    counter.textContent = number;
+    sorszam = number;
 }
 start();
