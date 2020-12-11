@@ -36,19 +36,21 @@ const todoDoneHide = () => {
 }
 
 const numberSet = (value) => {
-    const numberSet1 = {
-        0: () => number = 0,
-        1: () => number += 1,
-        2: () => number -= 1,
+    if (value === 0) {
+        number = 0;
+    } else if (value === 1) {
+        number += 1;
+    } else if (value === -1) {
+        number -= 1;
     }
-    counter.textContent = numberSet1.value;
+    counter.textContent = number;
 }
 
 const clearTodo = () => {
-    let i = todoList.childNodes.length;
-    while (i > 0) {
-        todoList.removeChild(todoList.childNodes[i - 1]);
-        i -= 1;
+    let todoListLength = todoList.childNodes.length;
+    while (todoListLength > 0) {
+        todoList.removeChild(todoList.childNodes[todoListLength - 1]);
+        todoListLength -= 1;
     }
     localStorage.clear();
     numberSet(0);

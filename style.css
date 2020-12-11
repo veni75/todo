@@ -54,12 +54,13 @@ input[id^="todo"] {
     font-size: 1.3rem;
     font-weight: bold;
     margin: 4rem 0;
+    text-align: center;
 }
 
 .todoDiv,
 .todoDoneDiv {
     animation: todoDiv 0.7s;
-    background-color: greenyellow;
+    background-color: rgb(183, 191, 204);
     border-radius: 5px;
     font-size: 1.5rem;
     height: 48px;
@@ -69,7 +70,7 @@ input[id^="todo"] {
 }
 
 .todoDoneDiv {
-    background-color: rgb(218, 253, 166);
+    background-color: #daeafc;
     text-decoration: line-through;
 }
 
