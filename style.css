@@ -20,7 +20,6 @@ main {
     max-width: 450px;
     padding: 3rem;
     position: relative;
-    
 }
 
 .date,
@@ -50,7 +49,7 @@ input[id^="todo"] {
     width: 25px;
 }
 
-.todo__none{
+.todo__none {
     font-size: 1.3rem;
     font-weight: bold;
     margin: 4rem 0;
@@ -60,18 +59,22 @@ input[id^="todo"] {
 .todoDiv,
 .todoDoneDiv {
     animation: todoDiv 0.7s;
-    background-color: rgb(183, 191, 204);
+    background-color: rgb(204, 209, 218);
     border-radius: 5px;
     font-size: 1.5rem;
     height: 48px;
     margin: 1rem 0;
     position: relative;
-    
 }
 
 .todoDoneDiv {
     background-color: #daeafc;
     text-decoration: line-through;
+}
+
+label {
+    height: 48px;
+    line-height: 48px;
 }
 
 @keyframes todoDiv {
@@ -134,7 +137,6 @@ input[id^="todo"] {
     right: 0;
     top: 0;
     width: 48px;
-    
 }
 
 i {

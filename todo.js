@@ -62,7 +62,7 @@ const deleteTodo = (ev) => {
     const todoDiv = ev.currentTarget.parentElement;
     const todoId = todoDiv.className.split(' ').pop();
     todoDiv.parentElement.removeChild(todoDiv);
-    localStorage.removeItem(`todo${todoId}`);
+    localStorage.removeItem(`${todoId}`);
     numberSet(-1);
     if (localStorage.length === 0) {
         todoNone.classList.remove('hide');
@@ -130,6 +130,7 @@ const checkBox = (ev) => {
     if (ev.currentTarget.checked === true) {
         ev.currentTarget.parentElement.parentElement.removeChild(ev.currentTarget.parentElement);
         createTodoDoneDiv(ev);
+        todoElementLabelDone.innerHTML = ev.currentTarget.parentElement.textContent;
         done += 1;
         percent = done / sorszam;
         numberSet(-1);
